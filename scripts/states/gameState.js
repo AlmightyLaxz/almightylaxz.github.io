@@ -26,12 +26,22 @@ GameState.prototype.update = function(deltaTime)
 	for(var k = 0; k < powerups.length; k++) {
 		powerups[k].update(deltaTime);
 	}
+	
+	if(player.armorDeplete == true && player.armor > 0){
+		player.armor--;
+	}
+	
+	if(player.armor == 0){
+		player.armorDeplete = false;
+	}
 }
 
 GameState.prototype.draw = function() 
 {
 	player.draw();
+	
 	drawMap();
+	
 	for(var k = 0; k < powerups.length; k++) {
 		if(powerups[k].alive == true) {powerups[k].draw();}
 		else {powerups.splice(k, 1)}

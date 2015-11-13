@@ -81,16 +81,16 @@ function drawMap()
 
 	for( var layerIdx=0; layerIdx < LAYER_COUNT; layerIdx++ )
 	{
-		for( var y = 0; y < level1.layers[layerIdx].height; y++ )
+		for( var y = 0; y < currentLevel.layers[layerIdx].height; y++ )
 		{
-			var idx = y * level1.layers[layerIdx].width + startX;
+			var idx = y * currentLevel.layers[layerIdx].width + startX;
 			for( var x = startX; x < startX + maxTiles; x++ )
 			{
-				if( level1.layers[layerIdx].data[idx] != 0 )
+				if( currentLevel.layers[layerIdx].data[idx] != 0 )
 				{
 					// the tiles in the Tiled map are base 1 (meaning a value of 0 means no tile),
 					// so subtract one from the tileset id to get the correct tile
-					var tileIndex = level1.layers[layerIdx].data[idx] - 1;
+					var tileIndex = currentLevel.layers[layerIdx].data[idx] - 1;
 					var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) *
 					(TILESET_TILE + TILESET_SPACING);
 					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) *
@@ -104,3 +104,15 @@ function drawMap()
 	}
 }
 
+/***********************************************
+			Next Level function
+***********************************************/
+
+function nextLevel() {
+	if(levelIndex < levelMax) {
+		levelIndex += 1;
+		var toTest = "level" + levelIndex;
+		if(toTest == "level" + levelMax) {stateManager.switchState(new GameWinState()); }
+		else {currentLevel = eval(toTest);}
+	}
+}

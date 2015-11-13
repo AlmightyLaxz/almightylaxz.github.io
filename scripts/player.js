@@ -22,7 +22,7 @@ var Player = function() {
 	
 	this.position = new Vector2();
 	this.position.set(2*TILE, 0*TILE);
-	this.width = 159;
+	this.width = 140;
 	this.height = 163;
 	
 	this.velocity = new Vector2();
@@ -40,9 +40,11 @@ var Player = function() {
 	
 	this.armor = 0;
 	this.spikeHit = false;
+	this.armorDeplete = false;
 	
 	this.gibbed = false;
 };
+
 
 var LEFT = 0;
 var RIGHT = 1;
@@ -185,11 +187,17 @@ Player.prototype.update = function(deltaTime) {
 				player.alive = false;
 			}
 			else {
-				this.armor--;
+				this.armorDeplete = true;
 				makePowerupEffect();
 			}
 		}
 	}
+	if(player.position.x > 6360) { // assuming all levels are same width
+		nextLevel();
+		player.reset();
+	    initialize();
+	}
+	
 	
 	if(player.lives == 0)
 	{
@@ -227,6 +235,7 @@ Player.prototype.reset = function(resetLives) {
 	this.position.set(2*TILE, 0*TILE);
 	this.deathTimer = 1.5;
 	this.gibbed = false;
-	this.armor = 0;
+	if(resetLives) {this.armor = 0;}
+	this.armorDeplete = false;
 	particles = [];
 }

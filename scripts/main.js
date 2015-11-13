@@ -20,6 +20,9 @@ splash_screen.src = "art/splash_screen.png";
 var gameover_screen = document.createElement("img");
 gameover_screen.src = "art/gameover_screen.png";
 
+var gamewin_screen = document.createElement("img");
+gamewin_screen.src = "art/gamewin_screen.png";
+
 var PLAYER_SPEED = 5;
 
  // abitrary choice for 1m
@@ -40,12 +43,16 @@ var JUMP = METER * 1500;
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
-
+var currentLevel = level1;
+var levelIndex = 1;
+var levelMax = 3;
 
 var LAYER_COUNT = 2;
 var LAYER_OBJECT_TRIGGERS = 1;
 var LAYER_PLATFORMS = 0;
 var LAYER_OBJECT_POWERUPS = 2;
+
+
 
 var MAP = {tw:200, th:30};
 var TILE = 32;
@@ -93,10 +100,10 @@ function initialize() {
 	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) { // initialize the collision map
 		cells[layerIdx] = [];
 		var idx = 0;
-		for(var y = 0; y < level1.layers[layerIdx].height; y++) {
+		for(var y = 0; y < currentLevel.layers[layerIdx].height; y++) {
 			cells[layerIdx][y] = [];
-			for(var x = 0; x < level1.layers[layerIdx].width; x++) {
-				if(level1.layers[layerIdx].data[idx] != 0) {
+			for(var x = 0; x < currentLevel.layers[layerIdx].width; x++) {
+				if(currentLevel.layers[layerIdx].data[idx] != 0) {
 					// for each tile we find in the layer data, we need to create 4 collisions
 					// (because our collision squares are 35x35 but the tile in the
 					// level are 70x70)
@@ -116,9 +123,9 @@ function initialize() {
 	
 	// add powerups
 	idx = 0;
-	for(var y = 0; y < level1.layers[LAYER_OBJECT_POWERUPS].height; y++) {
-		for(var x = 0; x < level1.layers[LAYER_OBJECT_POWERUPS].width; x++) {
-			if(level1.layers[LAYER_OBJECT_POWERUPS].data[idx] != 0) {
+	for(var y = 0; y < currentLevel.layers[LAYER_OBJECT_POWERUPS].height; y++) {
+		for(var x = 0; x < currentLevel.layers[LAYER_OBJECT_POWERUPS].width; x++) {
+			if(currentLevel.layers[LAYER_OBJECT_POWERUPS].data[idx] != 0) {
 				var px = tileToPixel(x);
 				var py = tileToPixel(y);
 				var e = new Powerup(px, py);
@@ -132,10 +139,10 @@ function initialize() {
 // initialize trigger layer in collision map
 cells[LAYER_OBJECT_TRIGGERS] = [];
 idx = 0;
-for(var y = 0; y < level1.layers[LAYER_OBJECT_TRIGGERS].height; y++) {
+for(var y = 0; y < currentLevel.layers[LAYER_OBJECT_TRIGGERS].height; y++) {
 	cells[LAYER_OBJECT_TRIGGERS][y] = [];
-	for(var x = 0; x < level1.layers[LAYER_OBJECT_TRIGGERS].width; x++) {
-		if(level1.layers[LAYER_OBJECT_TRIGGERS].data[idx] != 0) {
+	for(var x = 0; x < currentLevel.layers[LAYER_OBJECT_TRIGGERS].width; x++) {
+		if(currentLevel.layers[LAYER_OBJECT_TRIGGERS].data[idx] != 0) {
 			cells[LAYER_OBJECT_TRIGGERS][y][x] = 1;
 			cells[LAYER_OBJECT_TRIGGERS][y-1][x] = 1;
 			cells[LAYER_OBJECT_TRIGGERS][y-1][x+1] = 1;
@@ -148,7 +155,6 @@ for(var y = 0; y < level1.layers[LAYER_OBJECT_TRIGGERS].height; y++) {
 		idx++;
 	}
 }
-
 
 /***********************************************
 				Main (Run) Function
@@ -166,9 +172,13 @@ function main() {
 	stateManager.draw();
 	
 	drawFPS(deltaTime);
+	
+	
+
 }
 
 initialize();
+
 
 /***********************************************
 					Framework

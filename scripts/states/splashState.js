@@ -12,6 +12,8 @@ SplashState.prototype.load = function()
 	this.startButton = new Button(437, 734, 400, 100, "#FF0000");
 	
 	this.startButton.onPress = function() {
+		currentLevel = level1;
+		levelIndex = 1;
 		stateManager.switchState(new GameState());
 		mouse.mouseDown = false;
 		uiClickSound.play();

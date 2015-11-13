@@ -1,13 +1,13 @@
 /***********************************************
-				Base State Class
+				Game Win State
 ***********************************************/
 
-var GameoverState = function() 
+var GameWinState = function() 
 {
 	this.prototype = BaseState;
 }
 
-GameoverState.prototype.load = function() 
+GameWinState.prototype.load = function() 
 {
 	this.restartButton = new Button(479, 684, 400, 100, "#FF0000");
 	
@@ -18,17 +18,17 @@ GameoverState.prototype.load = function()
 	}
 }
 
-GameoverState.prototype.unload = function() 
+GameWinState.prototype.unload = function() 
 {
 }
 
-GameoverState.prototype.update = function(dt) 
+GameWinState.prototype.update = function(dt) 
 {
 	this.restartButton.update();
 	this.restartButton.draw();
 }
 
-GameoverState.prototype.draw = function() 
+GameWinState.prototype.draw = function() 
 {
-	context.drawImage(gameover_screen, 0, 0);
+	context.drawImage(gamewin_screen, 0, 0);
 }

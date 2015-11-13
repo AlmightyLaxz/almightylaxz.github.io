@@ -1,0 +1,11 @@
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+	width: auto;
+	height: auto;
+}
+
+body {
+	background-color:darkgrey;
+}
