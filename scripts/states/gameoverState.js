@@ -9,7 +9,7 @@ var GameoverState = function()
 
 GameoverState.prototype.load = function() 
 {
-	this.restartButton = new Button(479, 684, 400, 100, "#FF0000");
+	this.restartButton = new Button(473, 649, 400, 100, "#FF0000");
 	
 	this.restartButton.onPress = function() {
 		stateManager.switchState(new SplashState());

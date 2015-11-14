@@ -45,7 +45,7 @@ var endFrameMillis = Date.now();
 
 var currentLevel = level1;
 var levelIndex = 1;
-var levelMax = 3;
+var levelMax = 4;
 
 var LAYER_COUNT = 2;
 var LAYER_OBJECT_TRIGGERS = 1;

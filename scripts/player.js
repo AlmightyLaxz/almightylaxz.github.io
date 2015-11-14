@@ -57,7 +57,7 @@ var ANIM_WALK_RIGHT = 0;
 var ANIM_MAX = 5;
 
 Player.prototype.poweredUp = function() {
-	this.armor += 100;
+	this.armor = 100;
 }
 
 Player.prototype.update = function(deltaTime) {

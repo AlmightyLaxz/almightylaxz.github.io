@@ -2,13 +2,23 @@
 					HUD Display
 ***********************************************/
 
-//hudBackground = document.createElement("img");
-//hudBackground.src = "art/hud_background.png";
+hudLives = document.createElement("img");
+hudLives.src = "art/heart.png";
+
+hudArmor = document.createElement("img");
+hudArmor.src = "art/armor.png";
 
 function drawHUD() {
-	//context.drawImage(hudBackground, 0, 0);
+	// Drawing Lives
 	context.fillStyle = "#000";
 	context.font="32px Arial";
-	context.fillText("Lives: " + player.lives, 10, 30, 100);
-	if(player.armor > 0) {context.fillText("Armor: " + player.armor, 10, 75, 150);}
+	context.drawImage (hudLives, 10, 10);
+	context.fillText(player.lives, 60, 37, 100);
+	
+	// Drawing Armor
+	if(player.armor > 0) 
+	{
+		context.fillText(player.armor, 60, 80, 100) 
+		context.drawImage (hudArmor, 10, 50);
+	}
 }
